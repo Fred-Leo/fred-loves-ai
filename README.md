@@ -32,7 +32,7 @@ npm run build
 
 ## Status
 
-The core redesigned site source has been imported to GitHub. **This import has not yet passed a fresh build or lint check.** The original `package-lock.json` and binary favicon are not yet imported, and the CSS was compacted/adapted during transfer. This repository is not yet confirmed to exactly match the supplied ZIP. Live deployment and DNS are not verified.
+The core redesigned site source has been imported to GitHub. **The imported code passed GitHub Actions lint and production build on October 27, 2026.** The original `package-lock.json` and binary favicon are not yet imported, and the CSS was compacted/adapted during transfer. The visual design still needs parity verification against the approved redesign ZIP. This repository is not yet confirmed to exactly match the supplied ZIP. Live deployment and DNS are not verified.
 
 ## For future maintainers
 
