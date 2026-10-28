@@ -847,10 +847,7 @@ a {
 .integration-closing{max-width:620px;margin:60px 0 0 auto}
 @media(max-width:800px){.integration-grid{grid-template-columns:1fr;gap:35px}.integration-grid article+article{border-top:1px solid #ffffff40;padding-top:30px}.integration-grid h3{margin-top:18px}}
 
-.hero h1{font-variant-ligatures:none;font-feature-settings:"liga" 0,"clig" 0;letter-spacing:-.055em;line-height:.98}
-.hero h1 em{letter-spacing:-.055em}
-
-/* Keep the headline letters distinct at every viewport size. */
-.hero h1{font-family:Arial,Helvetica,sans-serif;font-weight:400;font-size:clamp(3rem,8vw,8rem);letter-spacing:0;line-height:1.08;font-kerning:normal;font-variant-ligatures:none;font-feature-settings:"liga" 0,"clig" 0}
-.hero h1 em{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.025em}
-@media(max-width:540px){.hero h1{font-size:clamp(2.5rem,10vw,3.4rem)}}
+/* Oversized headline, with distinct letters rather than tight tracking. */
+.hero h1{font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:clamp(4rem,11.5vw,10.5rem);letter-spacing:0;line-height:1.02;font-kerning:normal;font-variant-ligatures:none;font-feature-settings:"liga" 0,"clig" 0}
+.hero h1 em{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.015em}
+@media(max-width:540px){.hero h1{font-size:clamp(2.8rem,12.5vw,4.2rem)}}
