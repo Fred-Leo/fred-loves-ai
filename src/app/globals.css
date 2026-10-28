@@ -846,3 +846,6 @@ a {
 .integration-grid p,.integration-closing{font-size:1rem;line-height:1.65;color:#f1f0eabf;margin:0}
 .integration-closing{max-width:620px;margin:60px 0 0 auto}
 @media(max-width:800px){.integration-grid{grid-template-columns:1fr;gap:35px}.integration-grid article+article{border-top:1px solid #ffffff40;padding-top:30px}.integration-grid h3{margin-top:18px}}
+
+.hero h1{font-variant-ligatures:none;font-feature-settings:"liga" 0,"clig" 0;letter-spacing:-.055em;line-height:.98}
+.hero h1 em{letter-spacing:-.055em}
