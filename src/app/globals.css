@@ -849,3 +849,8 @@ a {
 
 .hero h1{font-variant-ligatures:none;font-feature-settings:"liga" 0,"clig" 0;letter-spacing:-.055em;line-height:.98}
 .hero h1 em{letter-spacing:-.055em}
+
+/* Keep the headline letters distinct at every viewport size. */
+.hero h1{font-family:Arial,Helvetica,sans-serif;font-weight:400;font-size:clamp(3rem,8vw,8rem);letter-spacing:0;line-height:1.08;font-kerning:normal;font-variant-ligatures:none;font-feature-settings:"liga" 0,"clig" 0}
+.hero h1 em{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.025em}
+@media(max-width:540px){.hero h1{font-size:clamp(2.5rem,10vw,3.4rem)}}
