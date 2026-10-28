@@ -1,24 +1,39 @@
 # Fred Loves AI
 
-**Website:** https://fredlovesai.com
+**Website:** https://fredlovesai.com  
+**Repository:** https://github.com/Fred-Leo/fred-loves-ai
 
-Fred Loves AI is an independent website for exploring artificial intelligence and showcasing experiments and projects. The site is intended as a personal learning and portfolio project, not a consulting business.
+An independent notebook on artificial intelligence, practical experiments, and building useful things. This is a personal exploration and portfolio project, not a consultancy.
 
-## Repository status
+## Run locally
 
-**Source recovery needed.** This repository currently contains documentation only. The latest website implementation has not yet been imported or verified. Do not treat this repository as a complete build or a deployed site.
+Requires Node.js and npm.
 
-## For contributors and future ChatGPT sessions
+```bash
+npm install
+npm run dev
+```
 
-- Canonical repository: `Fred-Leo/fred-loves-ai`
-- Project name: **Fred Loves AI**
-- Preserve the site's established visual identity and content when recovering or updating it.
-- Keep the author's personal information primarily on an About page rather than centering the homepage on a biography.
-- Before publishing, recover the latest source, check for secrets, document setup/build commands, test the production build, and verify the live domain.
+Open http://localhost:3000.
 
-## Next steps
+## Production checks
 
-1. Locate the latest Fred Loves AI source from prior website development work.
-2. Import all source files and required public assets into this repository.
-3. Add documented setup and deployment instructions.
-4. Verify the site and record the deployment status here.
+```bash
+npm run lint
+npm run build
+```
+
+## Project structure
+
+- `src/app/portfolio.tsx` — homepage and projects
+- `src/app/about/page.tsx` — author information
+- `src/app/globals.css` — responsive visual design
+- `src/app/layout.tsx` — shared layout and metadata
+
+## Status
+
+The core redesigned site source has been imported to GitHub. **This import has not yet passed a fresh build or lint check.** The original `package-lock.json` and binary favicon are not yet imported, and the CSS was compacted/adapted during transfer. This repository is not yet confirmed to exactly match the supplied ZIP. Live deployment and DNS are not verified.
+
+## For future maintainers
+
+This is the canonical GitHub repository. Preserve the existing visual identity. Keep unrelated Letters to Fred essays out of this codebase. Do not commit secrets or claim deployment before checking it.
