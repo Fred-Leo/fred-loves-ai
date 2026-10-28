@@ -851,3 +851,21 @@ a {
 .hero h1{font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:clamp(4rem,11.5vw,10.5rem);letter-spacing:0;line-height:1.02;font-kerning:normal;font-variant-ligatures:none;font-feature-settings:"liga" 0,"clig" 0}
 .hero h1 em{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.015em}
 @media(max-width:540px){.hero h1{font-size:clamp(2.8rem,12.5vw,4.2rem)}}
+
+/* Editorial opening: the idea and its purpose form a single composition. */
+.hero .site-nav{height:120px;grid-template-columns:1fr auto;gap:35px}
+.hero .wordmark{font-size:clamp(1.8rem,3vw,2.8rem);letter-spacing:-.055em;line-height:1}
+.hero .wordmark-byline{font-size:.65rem;letter-spacing:.12em;margin-top:11px}
+.hero .hero-grid{display:block;min-height:0;padding:48px 0 64px}
+.hero .hero-kicker{margin-bottom:32px}
+.hero h1.editorial-title{max-width:none;margin:0;font-family:Arial,Helvetica,sans-serif;letter-spacing:-.025em;line-height:1;font-size:inherit;font-weight:700}
+.hero h1 .title-integrated{display:block;font-family:Georgia,"Times New Roman",serif;font-size:clamp(4rem,8.9vw,8.7rem);letter-spacing:-.045em;line-height:1.03;margin-left:-.025em}
+.title-ai{display:block;font-size:clamp(2.6rem,6.5vw,6.5rem);letter-spacing:-.025em;line-height:1.12;margin:0 0 24px}
+.title-result{display:grid;grid-template-columns:.42fr 2fr auto;align-items:start;gap:24px;padding:26px 32px 30px;background:var(--acid);border:1px solid var(--ink)}
+.title-for{font-size:clamp(1.25rem,2.7vw,2.8rem);font-weight:400;padding-top:9px;letter-spacing:-.02em}
+.title-result strong{font-size:clamp(3.5rem,8.5vw,8.6rem);line-height:.98;font-weight:700;letter-spacing:-.025em}
+.title-arrow{font-family:Arial,Helvetica,sans-serif;font-size:clamp(4rem,9vw,9rem);line-height:.85;font-weight:400}
+.hero .hero-bottom{max-width:none;display:flex;align-items:center;justify-content:space-between;gap:40px;margin-top:32px}
+.hero .hero-bottom p{max-width:670px;font-size:clamp(1rem,1.4vw,1.2rem)}
+@media(max-width:900px){.hero .site-nav{grid-template-columns:1fr auto}.hero .nav-links>a:not(.nav-cta){display:none}.title-result{grid-template-columns:.35fr 2fr auto;gap:14px;padding:24px}.hero .hero-bottom{align-items:flex-start}}
+@media(max-width:540px){.hero .site-nav{height:100px;gap:16px}.hero .nav-links{display:flex}.hero .nav-links .nav-cta{display:inline-flex;font-size:.6rem;padding:0 10px}.hero .hero-grid{padding-top:35px}.hero .hero-kicker{font-size:.6rem;margin-bottom:26px}.hero h1 .title-integrated{font-size:17vw}.title-ai{font-size:7.7vw;letter-spacing:-.02em;margin-bottom:20px}.title-result{grid-template-columns:1fr auto;gap:12px;padding:19px 17px 23px}.title-for{grid-column:1/-1;padding:0;font-size:1.1rem}.title-result strong{font-size:12.3vw;letter-spacing:-.025em}.title-arrow{font-size:15vw}.hero .hero-bottom{flex-direction:column;gap:24px;margin-top:28px}.hero .hero-bottom p{max-width:none}}
