@@ -1,39 +1,27 @@
 # Fred Loves AI
 
-**Website:** https://fredlovesai.com  
-**Repository:** https://github.com/Fred-Leo/fred-loves-ai
+Personal website of Leo Helzberg, an economics student at CU Boulder, about AI integration and his work experience.
 
-An independent notebook on artificial intelligence, practical experiments, and building useful things. This is a personal exploration and portfolio project, not a consultancy.
+## Run
 
-## Run locally
-
-Requires Node.js and npm.
-
-```bash
-npm install
+```sh
+npm ci
 npm run dev
 ```
 
-Open http://localhost:3000.
+## Check and build
 
-## Production checks
-
-```bash
-npm run lint
+```sh
 npm run build
 ```
 
-## Project structure
+The site exports static pages to `out/`. The contact form is built, but sending is disabled until message delivery is configured.
 
-- `src/app/portfolio.tsx` — homepage and projects
-- `src/app/about/page.tsx` — author information
-- `src/app/globals.css` — responsive visual design
-- `src/app/layout.tsx` — shared layout and metadata
+## Current version
 
-## Status
+- AI integration, practical experience, a separate About page, and a contact form.
+- Opening headline: Integrated artificial intelligence.
+- Latest preview: https://fred-loves-ai-preview-leo.zippygoose4.chatgpt.site
+- Logo exploration: `public/brand/fred-logo-concept-v1.png`. This is a concept mockup, not the active site logo.
 
-The core redesigned site source has been imported to GitHub. **The imported code passed GitHub Actions lint and production build on October 27, 2026.** The original `package-lock.json` and binary favicon are not yet imported, and the CSS was compacted/adapted during transfer. The visual design still needs parity verification against the approved redesign ZIP. This repository is not yet confirmed to exactly match the supplied ZIP. Live deployment and DNS are not verified.
-
-## For future maintainers
-
-This is the canonical GitHub repository. Preserve the existing visual identity. Keep unrelated Letters to Fred essays out of this codebase. Do not commit secrets or claim deployment before checking it.
+Preserve the cream, blue, and lime identity and Leo’s plain wording. Keep unrelated essays out of this site. Do not commit secrets.
