@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ContactForm from "../components/contact-form";
 
 const roles = [
@@ -10,8 +11,8 @@ export default function Portfolio() {
   return <main>
     <section className="hero">
       <nav className="site-nav shell" aria-label="Primary navigation">
-        <a href="/" className="wordmark">Fred Loves AI<span className="wordmark-dot">.</span><span className="wordmark-byline">By Leo Helzberg</span></a>
-        <div className="nav-links"><a href="#integration">AI integration</a><a href="#experience">Experience</a><a href="/about">About Leo</a><a href="#contact" className="nav-cta">Get in touch ↗</a></div>
+        <Link href="/" className="wordmark">Fred Loves AI<span className="wordmark-dot">.</span><span className="wordmark-byline">By Leo Helzberg</span></Link>
+        <div className="nav-links"><a href="#integration">AI integration</a><a href="#experience">Experience</a><Link href="/about">About Leo</Link><a href="#contact" className="nav-cta">Get in touch ↗</a></div>
       </nav>
       <div className="hero-grid shell">
         <div className="hero-kicker"><span className="status-dot" /> Leo Helzberg · Boulder, Colorado</div>
