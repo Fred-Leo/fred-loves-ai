@@ -15,7 +15,7 @@ export default function Portfolio() {
       </nav>
       <div className="hero-grid shell">
         <div className="hero-kicker"><span className="status-dot" /> Leo Helzberg · Boulder, Colorado</div>
-        <h1><em>Integrated</em><br />artificial<br />intelligence.<span style={{ display: "block", fontSize: "clamp(2rem, 5.8vw, 5.5rem)", letterSpacing: "-0.015em", lineHeight: 1.08, marginTop: "20px", fontWeight: 700 }}>For extreme efficiency.</span></h1>
+        <h1><em>Integrated</em><br />artificial<br />intelligence.</h1>
         <div className="hero-bottom"><p>I’m Leo Helzberg. I’ve used AI in nonprofit administration, marketing, and client writing. I’m interested in how people move from trying a chatbot to using AI in their daily work.</p><a href="#integration" className="nav-cta">AI integration ↓</a></div>
         <div className="hero-orbit" aria-hidden="true"><div className="orbit orbit-one" /><div className="orbit orbit-two" /><span className="orbit-core" /></div>
       </div>
