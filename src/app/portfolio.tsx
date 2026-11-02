@@ -4,10 +4,10 @@ import ContactForm from "../components/contact-form";
 import SiteNav from "../components/site-nav";
 
 const roles = [
-  { place: "Leo Helzberg Custom Jewelry", type: "Founder · Aspen, Colorado", detail: "I started a custom jewelry business in high school, using manufacturing connections in Southeast Asia to make one-of-one pieces. Quoting orders taught me how production costs, shipping, and client changes affect margins." },
-  { place: "Helzberg Entrepreneurship Mentoring Program", type: "Nonprofit · Kansas City", detail: "I built custom GPTs to automate recurring administrative tasks and help match mentors with mentees." },
-  { place: "OnTheAvenue Marketing", type: "Marketing · Boston", detail: "I supported the CEO with deals and special projects and checked contract details before they went out." },
-  { place: "D’oriente Jewelry", type: "Jewelry · Thailand", detail: "I rewrote client-facing copy in American English for a Thai jewelry firm seeking American and European clients." },
+  { place: "Leo Helzberg Custom Jewelry", type: "Founder · Aspen, Colorado", detail: "I used AI throughout the day-to-day work of running my own custom jewelry business. Making one-of-one pieces through manufacturing connections in Southeast Asia gave me a place to try these tools on real business decisions, with real costs attached." },
+  { place: "Helzberg Entrepreneurship Mentoring Program", type: "Nonprofit · Kansas City", detail: "I built custom GPTs for recurring admin, mentor and mentee matching, and writing support. I gave each tool instructions and context for the task it needed to handle." },
+  { place: "OnTheAvenue Marketing", type: "Marketing · Boston", detail: "I worked alongside the CEO using AI on deals, contracts, and special projects. I used it to help write and review contracts and streamline daily operations, checking the details before anything went out." },
+  { place: "D’oriente Jewelry", type: "Jewelry · Thailand", detail: "I used AI to help rewrite client-facing copy in American English for a Thai jewelry firm reaching American and European clients. I adapted and checked the drafts so they sounded right for the business and its customers." },
 ];
 
 export default function Portfolio() {
