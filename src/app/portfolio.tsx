@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import ContactForm from "../components/contact-form";
+import SiteNav from "../components/site-nav";
 
 const roles = [
   { place: "Helzberg Entrepreneurship Mentoring Program", type: "Nonprofit · Kansas City", detail: "I built custom GPTs to automate recurring administrative tasks and help match mentors with mentees." },
@@ -10,15 +12,15 @@ const roles = [
 export default function Portfolio() {
   return <main>
     <section className="hero">
-      <nav className="site-nav shell" aria-label="Primary navigation">
-        <Link href="/" className="wordmark">Fred Loves AI<span className="wordmark-dot">.</span><span className="wordmark-byline">By Leo Helzberg</span></Link>
-        <div className="nav-links"><a href="#integration">AI integration</a><a href="#experience">Experience</a><Link href="/about">About Leo</Link><a href="#contact" className="nav-cta">Get in touch ↗</a></div>
-      </nav>
+      <SiteNav />
       <div className="hero-grid shell">
+        <div className="hero-main">
         <div className="hero-kicker"><span className="status-dot" /> Leo Helzberg · Boulder, Colorado</div>
-        <h1 className="editorial-title"><em className="title-integrated">Integrated</em><span className="title-ai">Artificial Intelligence</span><span className="title-result"><span className="title-for">For</span><strong>Extreme<br />Efficiency.</strong><span className="title-arrow" aria-hidden="true">↗</span></span></h1>
-        <div className="hero-bottom"><p>I’m Leo Helzberg. I’ve used AI in nonprofit administration, marketing, and client writing. I’m interested in how people move from trying a chatbot to using AI in their daily work.</p><a href="#integration" className="nav-cta">AI integration ↓</a></div>
-        
+        <h1 className="editorial-title"><em className="title-integrated">Integrated</em><span className="title-ai">Artificial<br />Intelligence.</span><span className="title-result">For Extreme Efficiency.</span></h1>
+        <a href="#integration" className="explore-link">AI integration <span aria-hidden="true">↓</span></a>
+        </div>
+        <div className="hero-art"><div className="mascot-orbit"><Image src="/brand/fred-lavender-dog.png" alt="Fred, a pixel dog with lavender ears and a cream face" width={1379} height={1141} priority unoptimized /></div><span className="art-caption">Fred Loves AI.</span></div>
+        <div className="hero-bottom"><span className="hero-note" aria-hidden="true">Leo Helzberg<br />Boulder, Colorado</span><p>I’m Leo Helzberg. I’ve used AI in nonprofit administration, marketing, and client writing. I’m interested in how people move from trying a chatbot to using AI in their daily work.</p></div>
       </div>
     </section>
     <section id="integration" className="focus section">
@@ -37,7 +39,7 @@ export default function Portfolio() {
         </div>
       </div>
     </section>
-    <section className="about section" id="about"><div className="shell section-grid"><div className="eyebrow"><span>03</span> About me</div><div className="about-copy"><p className="statement">Economics at CU Boulder.<br /><span className="muted">Curiosity everywhere else.</span></p><div className="about-details"><p>I’m obsessed with AI integration. I keep trying these tools on different tasks to find out where they help and where they get in the way.</p><p>I started using ChatGPT the week it opened. Since then, I’ve tried AI across platforms, in my personal life and at work. Here’s how I got into it and what keeps me coming back. <a className="text-link" href="/about">More about me ↗</a></p></div></div></div></section>
+    <section className="about section" id="about"><div className="shell section-grid"><div className="eyebrow"><span>03</span> About me</div><div className="about-copy"><p className="statement">Economics at CU Boulder.<br /><span className="muted">Curiosity everywhere else.</span></p><div className="about-details"><p>I’m obsessed with AI integration. I keep trying these tools on different tasks to find out where they help and where they get in the way.</p><p>I started using ChatGPT the week it opened. Since then, I’ve tried AI across platforms, in my personal life and at work. Here’s how I got into it and what keeps me coming back. <Link className="text-link" href="/about">More about me ↗</Link></p></div></div></div></section>
     <section id="contact" className="contact"><div className="shell contact-inner contact-layout"><div><p className="contact-kicker">Get in touch with Leo</p><h2>Let’s<br /><em>talk.</em></h2><p className="contact-copy">Have questions? Let’s get coffee or talk over Zoom. I’m a student who wants to learn and trade ideas. I know these tools; you know things I don’t. Let’s compare notes.</p><a href="https://www.linkedin.com/in/leo-helzberg" target="_blank" rel="noreferrer" className="text-link contact-social">Find me on LinkedIn ↗</a></div><ContactForm /></div></section>
     <footer className="footer"><div className="shell footer-inner"><span>Fred Loves AI.</span><span>Leo Helzberg</span><span>Boulder, Colorado</span></div></footer>
   </main>;
