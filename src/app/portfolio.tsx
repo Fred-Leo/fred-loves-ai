@@ -4,6 +4,7 @@ import ContactForm from "../components/contact-form";
 import SiteNav from "../components/site-nav";
 
 const roles = [
+  { place: "Leo Helzberg Custom Jewelry", type: "Custom jewelry", detail: "My own custom jewelry work." },
   { place: "Helzberg Entrepreneurship Mentoring Program", type: "Nonprofit · Kansas City", detail: "I built custom GPTs to automate recurring administrative tasks and help match mentors with mentees." },
   { place: "OnTheAvenue Marketing", type: "Marketing · Boston", detail: "I supported the CEO with deals and special projects and checked contract details before they went out." },
   { place: "D’oriente Jewelry", type: "Jewelry · Thailand", detail: "I rewrote client-facing copy in American English for a Thai jewelry firm seeking American and European clients." },
