@@ -920,3 +920,10 @@ section[id] {
     animation: none!important;
   }
 }
+
+.contact-fields { border: 0; padding: 0; margin: 0; min-width: 0; display: grid; gap: 1.25rem; }
+.contact-fields:disabled { opacity: .7; }
+.contact-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.form-status-error { color: #9b2929; }
+.form-status-success { color: #235a3a; }
+.form-status { min-height: 1.5em; }

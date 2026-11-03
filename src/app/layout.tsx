@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     "Leo Helzberg. Economics at CU Boulder. Experience in nonprofit administration, marketing, and client writing.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${geist.variable} antialiased`}>
       <body>{children}</body>
