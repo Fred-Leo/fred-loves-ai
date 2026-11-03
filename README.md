@@ -1,67 +1,136 @@
 # Fred Loves AI
 
-Personal website of Leo Helzberg, an economics student at CU Boulder, about AI integration and work experience.
+[Live website](https://fredlovesai.com) · A personal portfolio by Leo Helzberg, an economics student at CU Boulder exploring applied AI and integration.
 
-## Source and hosting
+This project pairs an editorial React interface with a server-side email delivery handler. It demonstrates API boundaries, defensive input handling, asynchronous UI states, and deployment beyond a static export.
 
-- Canonical source: https://github.com/Fred-Leo/fred-loves-ai (main).
-- Existing Sites project: `appgprj_6ae23f1fd9488191b291cfbf9ebf0539`. Reuse it; do not create a replacement.
-- Public website: https://fredlovesai.com and https://www.fredlovesai.com.
-- Original Sites URL: https://fred-loves-ai-preview-leo.zippygoose4.chatgpt.site.
-- Domain remains registered at Porkbun.
+## Architecture
 
-## Run and validate
+```mermaid
+flowchart TD
+  A[Contact form] -->|JSON POST /api/contact| B[Cloudflare Worker]
+  B --> C[Validate, size limit, honeypot and throttle]
+  C -->|Server credentials| D[Resend email API]
+  D --> E[Configured inbox]
+  B -->|Explicit HTTP and JSON result| A
+```
+
+- **Frontend:** TypeScript, React, Next-compatible App Router pages, Tailwind CSS. Existing design and editorial content are preserved.
+- **Runtime:** Vinext builds the application into a Cloudflare Worker using the Sites build integration. `worker/index.ts` routes `/api/contact` to `server/contact.mjs`; other requests use the framework handler.
+- **Delivery:** HTTPS to Resend, rather than SMTP/TCP. The sender and recipient are server configuration; visitors can only set Reply-To. No contact records are stored in an application database.
+- **Build output:** `dist/client` and `dist/server`. This is no longer a static `out/` deployment: static hosting alone cannot execute the contact handler.
+
+## Current delivery status
+
+The delivery handler is implemented and its success/failure paths are covered by automated tests with an injected email API. **Production email credentials are not configured yet.** Until configured, valid submissions return HTTP 503 with a visible explanation and LinkedIn fallback. A passing mock test is not evidence of inbox delivery.
+
+To activate real delivery, provision a Resend API key, verify a sender domain, set the three server-side values below, and perform the inbox test. Existing Zoho receiving mail can remain in place; use the provider's exact DNS instructions and preserve existing mail records. Never create a second SPF record at the same hostname.
+
+## Local setup
+
+Use Node.js 22.13 or newer and npm. The checked-in lockfile pins dependencies.
 
 ```sh
 npm ci
+cp .env.example .dev.vars
+```
+
+Fill `.dev.vars` locally:
+
+| Variable | Purpose |
+| --- | --- |
+| `RESEND_API_KEY` | Sending API key; server only |
+| `CONTACT_FROM_EMAIL` | Bare sender address on a verified Resend domain |
+| `CONTACT_TO_EMAIL` | Inbox that receives contact messages |
+
+No value uses a `NEXT_PUBLIC_` prefix. `.env` and `.dev.vars` files are ignored. Configure the same keys separately in **Sites runtime environment variables**, marking the API key secret. GitHub Actions secrets are not the deployed Worker's runtime configuration.
+
+```sh
 npm run dev
 ```
 
-Before every publication:
+Open the URL printed by the server (normally http://localhost:5173), scroll to Contact, and send a test using an email address you control. Both local development and a built Worker started with `npm start` use Wrangler local environment configuration (`.dev.vars`).
+
+## Test the form
 
 ```sh
+npm test
 npm run lint
 npm run build
 ```
 
-## Publish GitHub changes to the existing Site
+The test suite exercises the actual handler with Web Request/Response objects and a substituted outbound transport. It covers accepted delivery, recipient/Reply-To, invalid and non-string fields, header injection, malformed JSON, request size limits, cross-origin requests, methods, missing configuration, provider rejection, invalid provider responses, network errors, timeout, and throttle expiration. It sends no email and requires no API key.
 
-GitHub Actions runs checks only. A green check does **not** publish the website. Public automatic publication is not enabled.
+Manual end-to-end checks after configuring real credentials:
 
-An authorized tool with Sites access must:
-1. Pull the latest GitHub main and record its commit SHA. Treat GitHub as authoritative for application files; preserve the homepage unless explicitly asked to redesign it.
-2. Read the existing project with Sites `get_site`, then obtain `create_source_repository_write_credential` for the project ID above.
-3. Use the Sites skill's `scripts/site-workflow.mjs --project-id appgprj_6ae23f1fd9488191b291cfbf9ebf0539` to open the existing hosted source. Pass credentials through hidden stdin, never commit or print them.
-4. Synchronize the approved GitHub application changes into that existing checkout. Preserve its `.openai/hosting.json` identity. The current deployment is a Next static export with `output: "export"`, `trailingSlash: true`, and `static.directory: "out"`. The GitHub development config currently uses normal Next output; preserve the hosted export configuration for static deployment. Server contact delivery requires a supported Worker backend or external form service; a static export alone cannot hold server credentials.
-5. Run `npm run lint` and `npm run build` on the final deployment inputs. Package using the same Sites workflow helper, with the prior opening result, credential, an absolute archive path, and remaining ordered commands. The framework build helper is `scripts/build-site.mjs` from the installed Sites plugin.
-6. Use the helper's exact pushed `commit_sha` and archive with Sites `save_site_version`, then `deploy_site_version` for this public project. Do not switch its audience. Poll nonterminal deployment status until succeeded or failed.
-7. Verify the public domain and record the deployed version and corresponding GitHub SHA.
+1. Submit a valid name, email, and message of at least 10 characters. Observe **Sending…**, disabled controls, then an acceptance message and cleared fields.
+2. Check the destination inbox and spam folder for the complete message. Reply and confirm the reply is addressed to the visitor. Check the provider's delivery event if the message is missing. API acceptance alone does not prove inbox arrival.
+3. Try an invalid email or short message. Browser validation should prevent submission; the server independently rejects bypassed validation.
+4. Remove the local key and restart. Submit again: expect an error alert, retained text, and a LinkedIn fallback. Restore the key afterward.
+5. Use the browser Network panel's Offline mode and submit. Expect a visible error with the message preserved. Restore connectivity and retry.
+6. Repeat on a narrow/mobile screen and with keyboard navigation. Status announcements use `role=status`; errors use `role=alert`.
 
-The hosted source repository is a deployment mirror, not a replacement for GitHub. Never edit only that mirror and leave GitHub behind.
+For a direct API check, replace the origin/port with the server URL and use a fresh UUID for each new message. Reuse the UUID only for an identical retry:
 
-## DNS and email status (2026-10-29)
+```sh
+curl -i http://localhost:5173/api/contact \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: http://localhost:5173' \
+  -H 'Idempotency-Key: bf983733-d55f-4eab-bb44-c9ce31496bc9' \
+  --data '{"name":"Local Test","email":"you@example.com","organization":"","message":"Testing my contact form end to end.","website":""}'
+```
 
-Both hostnames were verified active with active TLS and opened publicly without a ChatGPT login.
+## API contract and decisions
 
-Porkbun website records:
-- Root A: `162.159.143.30` and `172.66.3.26`.
-- `www` CNAME: `custom-domains.chatgpt.site.`.
-- Sites validation TXT records exist for both hostnames. Refresh returned instructions through Sites before changing them.
-- The previous root ALIAS served Porkbun Link in Bio and was replaced. Existing wildcard routing and unrelated records were preserved.
+`POST /api/contact` accepts `name` (1–120 characters), `email` (up to 254), optional `organization` (up to 160), `message` (10–5,000), and empty `website` (honeypot). Text is trimmed before validation. Requires JSON and a UUID v4 `Idempotency-Key` header. Streamed bodies are limited to 24,000 bytes; a forged/missing Content-Length cannot bypass the limit.
 
-Existing Zoho MX, domain verification, SPF and DKIM records were preserved. Do not replace those MX records with Porkbun forwarding until the existing Zoho mailboxes have been inspected. Do not add a second SPF record.
+| HTTP status | Meaning |
+| --- | --- |
+| 200 | Provider accepted the email; `{ "ok": true, "message": "…" }` |
+| 400 / 413 / 415 | Invalid fields/JSON/key, oversized body, or unsupported media type |
+| 403 / 405 | Cross-origin submission or unsupported method |
+| 429 | Per-isolate attempt limit; `Retry-After: 60` |
+| 503 | Delivery is not configured |
+| 502 / 504 | Provider rejection/invalid response or unconfirmed delivery/network timeout |
 
-Requested setup: deliver domain email and contact submissions to Leo's confirmed personal Gmail inbox, with authenticated Gmail "Send mail as" for domain addresses. Zoho sign-in is required to verify the existing mailbox/service. No mailbox or subscription was purchased. A DMARC policy and any sending-provider changes remain pending provider verification.
+Every response is JSON with a public `message` and `Cache-Control: no-store`. Provider response bodies, credentials, names, email addresses, and message text are not logged. Operational logs contain only event names and provider HTTP status.
 
-## Contact form
+**Why these choices:**
 
-The form is present but deliberately disabled. No delivery success or arrival test has been claimed. Finish email/provider setup before enabling it:
-- Send to the confirmed destination; use the visitor email as Reply-To, never as an unverified From address.
-- Keep API credentials in server runtime secrets.
-- Validate lengths and email fields on the server, constrain origins, and add basic spam/rate protection.
-- Return success only after the mail provider accepts delivery; verify actual inbox arrival.
-- Preserve the current visual design.
+- Server-only credentials and fixed recipients prevent browser key exposure and an arbitrary-recipient email relay.
+- Plain-text email avoids rendering visitor-supplied HTML. Single-line identity fields reject line breaks.
+- The server waits for a valid provider acceptance ID before returning success. An 8-second provider timeout and 15-second browser timeout bound waiting; failures keep the draft in the form.
+- An identical browser retry reuses the provider idempotency key. Editing the message creates a new key. Reloading loses that key; provider deduplication is not a durable application queue or an exactly-once guarantee.
+- Honeypot, same-origin browser checks, and a bounded in-memory throttle reduce casual abuse. The five-attempts-per-minute limit uses Cloudflare's IP header and is **per Worker isolate**, not a distributed guarantee. Origin headers are not authentication. For heavier traffic, add managed WAF/rate limiting or a verified CAPTCHA before increasing sending limits.
+- No automatic retries after uncertain delivery: the visitor chooses whether to retry, with the same key. Provider acceptance is distinguished from confirmed delivery; bounces require provider delivery events.
 
-## Design
+## Deployment
 
-Preserve the cream, blue, and lime identity, separate About page, and Leo's wording. Keep unrelated essays out of this site. `public/brand/fred-logo-concept-v1.png` is an inactive concept. Do not commit secrets.
+Canonical public source: [Fred-Leo/fred-loves-ai](https://github.com/Fred-Leo/fred-loves-ai). Hosting uses the existing public Sites project recorded in `.openai/hosting.json`.
+
+1. Configure the server variables in the existing Sites project's runtime settings. Do not put them in hosting.json or a build artifact.
+2. Run tests, lint, and the production build above. CI runs the same checks.
+3. Push the reviewed source to GitHub.
+4. Synchronize that exact source to the existing Sites source repository using its authenticated source workflow, package the Worker build, save a Site version tied to the pushed source commit, and deploy that version. GitHub CI alone does **not** publish the Site.
+5. Check deployment success, then repeat the real inbox test at https://fredlovesai.com. Retain the previous saved version for rollback.
+
+The source workflow is documented by the Sites integration; it supplies repository credentials and builds/packages the exact pushed revision. Reuse the existing project and domain rather than creating a second Site. A saved static deployment will not serve the new API.
+
+## Commit your changes
+
+```sh
+git status --short
+git diff --check
+npm test
+npm run lint
+npm run build
+git add README.md .env.example .gitignore package.json package-lock.json \
+  next.config.ts vite.config.ts eslint.config.mjs cloudflare-env.d.ts \
+  .openai/hosting.json .github/workflows/ci.yml scripts vendor worker server tests \
+  src/components/contact-form.tsx src/app/globals.css src/app/layout.tsx
+git diff --cached --stat
+git commit -m "Implement contact delivery handler and document runtime architecture"
+git push origin main
+```
+
+Use a branch and pull request when collaborating. Inspect staged files before committing; never add local credential files. If these changes are already on the remote, pull them instead of repeating the commit. Do not claim real email delivery on a resume until the configured inbox test passes.
