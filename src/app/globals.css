@@ -948,3 +948,9 @@ section[id] {
 .guide-footer p{max-width:620px}
 .guide-footer a{text-decoration:underline;white-space:nowrap}
 @media(max-width:700px){.guide-hero{padding-block:55px}.guide-index{margin-top:35px}.guide-index a{gap:8px;grid-template-columns:28px 1fr 18px}.guide-article{padding:55px 0}.guide-article section p{font-size:15px}.guide-try{padding:20px}.guide-footer{display:block}.guide-footer a{display:inline-block;margin-top:20px}}
+
+/* Homepage guide links: reuse the existing editorial palette and typography. */
+.home-guide-links{margin-top:35px;border-top:1px solid var(--line)}
+.home-guide-links a{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:19px 0;border-bottom:1px solid var(--line);font-size:clamp(17px,2vw,23px);letter-spacing:-.02em}
+.home-guide-links a:hover{color:var(--purple)}
+@media(max-width:700px){.hero-main .explore-link{margin-left:0!important;margin-right:14px}.home-guide-links a{font-size:17px}}
